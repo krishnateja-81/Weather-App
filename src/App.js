@@ -11,7 +11,7 @@ export default function App() {
 
   useEffect(() => {
     fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}`
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}`
     )
       .then((response) => response.json())
       .then((data) => {
