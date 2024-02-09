@@ -8,20 +8,25 @@ export default function App() {
   const ApiKey = "defc58b0449df58f5b750a7810dc80b2";
   const [dailyData, setDailyData] = useState([]);
   const [city, setCity] = useState("vijayawada");
+  const [search,setSearch] = useState(false)
 
   useEffect(() => {
+    if (city){
+      if (search){
     fetch(
       `http://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${ApiKey}`
     )
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         const dailyTemps = groupDataByDay(data.list);
         setDailyData(dailyTemps);
       })
       .catch((error) => {
         console.log(error);
       });
+    }
+    }
   });
 
   const groupDataByDay = (data) => {
@@ -74,7 +79,7 @@ export default function App() {
             <a className="navbar-brand" href="/">
               Weather App
             </a>
-            <form className="d-flex" role="search">
+            <div className="d-flex" role="search">
               <input
                 className="form-control me-2"
                 type="search"
@@ -84,7 +89,10 @@ export default function App() {
                   setCity(e.target.value);
                 }}
               />
-            </form>
+                <button class="btn btn-outline-success" type="submit" onClick={ () =>
+                  setSearch(true)
+                }>Search</button>
+            </div>
           </div>
         </nav>
       </section>
